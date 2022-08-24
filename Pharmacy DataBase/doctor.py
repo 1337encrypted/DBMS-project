@@ -7,6 +7,7 @@ class DOCTOR:
         self.clinicAddress = ""
         self.licence = ""
 
+    #changes made
     # parameterized constructor
     def __init__(self, name, age, phone, clinicAddress, licence):
         self.name = name
