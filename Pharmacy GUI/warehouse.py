@@ -20,7 +20,7 @@ class warehouse:
             self.con = dbConnect()
             self.cur = self.con.cursor()
         except
-        self.id = ""
+        self.id = 0
         self.name = ""
         self.location = ""
 
@@ -31,3 +31,43 @@ class warehouse:
         self.id = id
         self.name = name
         self.location = location
+
+    #create table
+    def createWarehouse(self):
+        query = 'create table if not exists warehouse(id int primary key,name varchar(20),location varchar(30));'
+        #cur = self.con.cursor()
+        cur.execute(query)
+        self.con.commit()
+        print("\nSuccessfull")
+
+    #insert
+    def insertWarehouse(self, id, name, location):
+        query = "insert into warehouse(id,name,location) values({},'{}','{}');"
+        #cur = self.con.cursor()
+        cur.execute(query)
+        self.con.commmit()
+
+    #fetch
+    def fetchAll(self):
+        query="select * from warehouse;"
+        #cur = self.con.cursor()
+        cur.execute(query);
+        for row in cur:
+            print(row)
+
+    #delete
+    def deleteWarehouse(self,id):
+        query="delete from warehouse where id = {};".format(id)
+        #cur = self.con.cursor()
+        cur.execute(query)
+        self.con.commit()
+        print("Delete");
+
+    #update
+    def updateWarehouse(self,id,name,location):
+        query="update warehouse set location='{}', where id = ;".format(location)
+        print(query)
+        #cur = self.con.cursor()
+        cur.execute(query)
+        self.con.commit()
+        print("updated");
