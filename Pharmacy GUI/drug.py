@@ -29,12 +29,12 @@ class drug:
         except
             print("Database Error")
         self.name = ""
-        self.cost = ""
+        self.cost = 0.0
         self.manufacturerName = ""
         self.manufactureDate = ""
         self.expiryDate = ""
         self.type = ""
-        self.barcode = ""
+        self.barcode = 0
 
     # parameterized constructor
     def __init__(self, con, name, cost, manufacturerName, manufactureDate, expiryDate, type, barcode):
