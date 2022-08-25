@@ -1,6 +1,33 @@
-class DRUG:
+#+--------------------+-------------+------+-----+---------+-------+
+#| Field              | Type        | Null | Key | Default | Extra |
+#+--------------------+-------------+------+-----+---------+-------+
+#| NAME               | varchar(30) | YES  |     | NULL    |       |
+#| COST               | double      | YES  |     | NULL    |       |
+#| TYPE               | varchar(20) | YES  |     | NULL    |       |
+#| BARCODE            | int         | NO   | PRI | NULL    |       |
+#| MANUFACTURING_DATE | date        | YES  |     | NULL    |       |
+#| MANUFACTURER_NAME  | varchar(20) | YES  |     | NULL    |       |
+#| EXPIRY_DATE        | date        | YES  |     | NULL    |       |
+#+--------------------+-------------+------+-----+---------+-------+
+
+
+#CLASS
+drug
+
+#FUNCTIONS
+#please fill this list
+
+
+from connection import dbConnect
+
+class drug:
     # default constructor
     def __init__(self):
+        try:
+            self.con = dbConnect()
+            self.cur = self.con.cursor()
+        except
+            print("Database Error")
         self.name = ""
         self.cost = ""
         self.manufacturerName = ""
@@ -10,7 +37,9 @@ class DRUG:
         self.barcode = ""
 
     # parameterized constructor
-    def __init__(self, name, cost, manufacturerName, manufactureDate, expiryDate, type, barcode):
+    def __init__(self, con, name, cost, manufacturerName, manufactureDate, expiryDate, type, barcode):
+        self.con = con
+        self.cur = self.con.cursor()
         self.name = name
         self.cost = cost
         self.manufacturerName = manufacturerName
