@@ -1,3 +1,14 @@
+#+-------------+-------------+------+-----+---------+-------+
+#| Field       | Type        | Null | Key | Default | Extra |
+#+-------------+-------------+------+-----+---------+-------+
+#| NAME        | varchar(20) | YES  |     | NULL    |       |
+#| PH_NO       | varchar(10) | YES  |     | NULL    |       |
+#| ADDRESS     | varchar(30) | YES  |     | NULL    |       |
+#| CUSTOMER_ID | int         | NO   | PRI | NULL    |       |
+#| GENDER      | varchar(1)  | YES  |     | NULL    |       |
+#| EMPLOYEE_ID | int         | YES  | MUL | NULL    |       |
+#+-------------+-------------+------+-----+---------+-------+
+
 #CLASS
 #customer
 
