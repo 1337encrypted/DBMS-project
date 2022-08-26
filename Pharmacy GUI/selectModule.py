@@ -1,5 +1,5 @@
 import mysql.connector
-from connection import dbConnect
+from connectionModule import dbConnect
 
 def read():
     conn = dbConnect()
@@ -8,7 +8,7 @@ def read():
         c.execute("""CREATE TABLE IF NOT EXISTS EMPLOYEE(NAME varchar(20), AGE int, PH_NO varchar(10), EMPLOYEE_ID int, SHIFT_TIME varchar(20))""")
         c.execute("SELECT * FROM EMPLOYEE")
         results = c.fetchall()
-        print("Records selected")
+        print("select * from employee -> tree.view")
         conn.close()
         return results
     except mysql.connector.Error as err:

@@ -1,5 +1,5 @@
 import mysql.connector
-from connection import dbConnect
+from connectionModule import dbConnect
 
 def deleteRecord(data):
     conn = dbConnect()

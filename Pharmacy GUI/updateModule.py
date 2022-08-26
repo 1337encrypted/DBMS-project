@@ -1,5 +1,5 @@
 import mysql.connector
-from connection import dbConnect
+from connectionModule import dbConnect
 
 def update(Name, Age, Phone, Id, Shift, idName):
     conn = dbConnect()
@@ -11,6 +11,7 @@ def update(Name, Age, Phone, Id, Shift, idName):
         print("Record successfully updated")
         conn.commit()
         conn.close()
+        return True
     except mysql.connector.Error as err:
         print("+++++++++++++++++++++++++++++++++++++++++USER DEFINED EXCEPTION+++++++++++++++++++++++++++++++++++++++++")
         #print(err)

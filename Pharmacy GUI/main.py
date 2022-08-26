@@ -8,16 +8,19 @@
 # | SHIFT_TIME  | varchar(20) | YES  |     | NULL    |       |
 # +-------------+-------------+------+-----+---------+-------+
 
-#import sqlite3
 from tkinter import *
 from tkinter import ttk
 import mysql.connector as connector
-from connection import dbConnect
+from connectionModule import dbConnect
 from insertModule import insert
 from deleteModule import deleteRecord
 from selectModule import read
 from updateModule import update
+import time
 
+print("Initializing Pharmacy database...")
+time.sleep(3)
+print(dbConnect())
 root = Tk()
 root.title("Pharmacy database")
 root.geometry("1100x360")
@@ -41,7 +44,6 @@ flag = False
 
 def exit():
     print("==========================================EXITING==========================================")
-    clrBoxes()
     root.destroy()
     
 def clrBoxes():
@@ -62,7 +64,7 @@ def insertData():
     employeePhone = str(entryPhone.get())
     employeeId = str(entryId.get())
     employeeShift = str(entryShift.get())
-    
+    print("+++++++++++++++++++++++++++++++++++++++++USER DEFINED EXCEPTION+++++++++++++++++++++++++++++++++++++++++")
     if employeeId == "" or employeeId == " " :
         print("Error Inserting employee id")
     if employeeName == "" or employeeName == " ":
@@ -73,9 +75,12 @@ def insertData():
         print("Error Inserting Phone number")
     if employeeShift == "" or employeeShift == " ":
         print("Error Inserting employee shift time")
+
     else:
-        insert(str(employeeName), str(employeeAge), str(employeePhone), str(employeeId), str(employeeShift))
-        clrBoxes()
+        flag = insert(str(employeeName), str(employeeAge), str(employeePhone), str(employeeId), str(employeeShift))
+        if(flag):
+            flag=False
+            clrBoxes()
         
     my_tree.tag_configure('grey', background='lightgrey')
     my_tree.tag_configure('normal', background='white')
@@ -125,9 +130,29 @@ def deleteData():
 
 def updateData():
     try:
-        selected_item = my_tree.selection()[0]
-        update_name = my_tree.item(selected_item)['values'][0]
-        update(entryName.get(), entryAge.get(), entryPhone.get(), entryId.get(), entryShift.get(), update_name)
+        employeeName = str(entryName.get())
+        employeeAge = str(entryAge.get())
+        employeePhone = str(entryPhone.get())
+        employeeId = str(entryId.get())
+        employeeShift = str(entryShift.get())
+        
+        if employeeId == "" or employeeId == " " :
+            print("Error Inserting employee id")
+        if employeeName == "" or employeeName == " ":
+            print("Error Inserting employee name")
+        if employeeAge == "" or employeeAge == " ":
+            print("Error Inserting employee age")
+        if employeePhone == "" or employeePhone == " ":
+            print("Error Inserting Phone number")
+        if employeeShift == "" or employeeShift == " ":
+            print("Error Inserting employee shift time")
+        else:
+            selected_item = my_tree.selection()[0]
+            update_name = my_tree.item(selected_item)['values'][3]
+            flag = update(employeeName, employeeAge, employeePhone, employeeId, employeeShift, update_name)
+            if(flag):
+                flag=False
+                clrBoxes()
     except IndexError:
         print("+++++++++++++++++++++++++++++++++++++++++USER DEFINED EXCEPTION+++++++++++++++++++++++++++++++++++++++++")
         print('Please select a tuple to update')
