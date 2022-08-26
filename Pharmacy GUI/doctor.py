@@ -42,3 +42,43 @@ class doctor:
         self.phone = phone
         self.clinicAddress = clinicAddress
         self.licence = licence
+
+        # create table
+        def createCustomer(self):
+            query = 'create table if not exists customer(name varchar(20),age int,phone varchar(30),clinicAddress varchar(40),licence varchar(20), primary key licence)'
+            # cur = self.con.cursor()
+            cur.execute(query)
+            self.con.commit()
+            print("\nSuccessfull")
+
+        # insert
+        def insertCustomer(self, name, ph_no, address, customer_id, gender, employee_id):
+            query = "insert into customer(name ,age ,phone ,clinicAddress ,licence ) values('{}',{},'{}','{}','{}')"
+            # cur = self.con.cursor()
+            cur.execute(query)
+            self.con.commmit()
+
+        # fetch
+        def fetchAll(self):
+            query = "select * from customer"
+            # cur = self.con.cursor()
+            cur.execute(query);
+            for row in cur:
+                print(row)
+
+        # delete
+        def deleteCustomer(self, customer_id):
+            query = "delete from doctor where licence = {} ".format(licence)
+            # cur = self.con.cursor()
+            cur.execute(query)
+            self.con.commit()
+            print("Delete");
+
+        # update
+        def updateCustomer(self,  name, age,phone,clinicalAddress,licence):
+            query = "update doctor set name='{}',age={},phone='{}',clinicAddress='{}',licence='{}' where licence = ".format(name ,age ,phone ,clinicAddress ,licence)
+            print(query)
+            # cur = self.con.cursor()
+            cur.execute(query)
+            self.con.commit()
+            print("updated");
