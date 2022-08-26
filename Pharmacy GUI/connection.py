@@ -1,16 +1,14 @@
-#CLASS
-#dbConnect
+import mysql.connector as mysql
 
-#FUNCTIONS
-#__init__
-
-import mysql.connector as connector
-
-class dbConnect:
-    def __init__(self):
-        try:
-            self.con = connector.connect(host='localhost', port='3306', user='root', password='root', database='pharmacydb')
-            self.cur = self.con.cursor()
-            print(self.con)
-        except:
-            print("Dbconnect error")
+def dbConnect():
+    try:
+        con = mysql.connect(host='localhost', port='3306', user='root', password='root', database='pharmacydb')
+        #print(con)
+    except mysql.connector.Error as err:
+        print("+++++++++++++++++++++++++++++++++++++++++USER DEFINED EXCEPTION+++++++++++++++++++++++++++++++++++++++++")
+        #print(err)
+        print("Error Code: ", err.errno)
+        print("SQLSTATE: ", err.sqlstate)
+        print("Message: ", err.msg)
+        print("+++++++++++++++++++++++++++++++++++++++++++END OF EXCEPTION+++++++++++++++++++++++++++++++++++++++++++++")
+    return con

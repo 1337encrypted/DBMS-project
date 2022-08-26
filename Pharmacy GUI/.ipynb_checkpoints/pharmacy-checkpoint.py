@@ -1,6 +1,14 @@
 from tkinter import *
 from tkinter import ttk
 import sqlite3
+from connection import dbConnect
+#from customer import *
+#from doctor import *
+#from drug import *
+#from employee import *
+#from supplier import *
+#from manufacturer import *
+#from warehouse import *
 
 class pharmacyManagementSystem:
 
@@ -11,12 +19,9 @@ class pharmacyManagementSystem:
 
         # -------------------------DBVariables-----------------------
 
-        self.addName = StringVar()
-        self.addAge = IntVar()
-        self.addPhone = StringVar()
-        self.addID = IntVar()
-        self.addShifTime = StringVar()
-
+        self.buttonColor = "red"
+        self.textColor = "red"
+        
         lableTitle = Label(self.root, text=" PHARMACY MANAGEMENT SYSTEM ", bd=15, relief=RIDGE, bg='white',
                            fg="darkgreen", font=("times now roman", 50, "bold"), padx=2, pady=4)
         lableTitle.pack(side=TOP, fill=X)
@@ -35,29 +40,47 @@ class pharmacyManagementSystem:
 
         # -----------------------ChangesFrameLabels-----------------
         #EmployeeChanges
+        
+        #=================================insert function=======================================
+        
+            
+        
         def employee():
             # destroys all widgets in previously opened frame
             for widget in changesFrame.winfo_children():
                 widget.destroy()
 
-            addName = StringVar()
-            addAge = IntVar()
-            addPhone = StringVar()
-            addID = IntVar()
-            addShifTime = StringVar()
+            addNameemployee = StringVar()
+            addAgeemployee = IntVar()
+            addPhoneemployee = StringVar()
+            addIDemployee = IntVar()
+            addShifTimeemployee = StringVar()
+
+            def EmployeeInsert():
+                try:
+                    con = connector.connect(host='localhost', port='3306', user='root', password='root', database='pharmacydb')
+                    cur = con.cursor()
+                    print(con)
+                except:
+                    print("Dbconnect error")
+                    
+                query = "insert into employee(name,age,ph_no,employee_id,shift_time) values(addNameemployee.get(),int(addAgeemployee.get()),addPhoneemployee.get(),int(addIDemployee.get()),addShifTimeemployee.get()));"
+                
+                cur.execute(query)
+                con.commmit()
 
             #Name
             labelName = Label(changesFrame, text="Name:", font=("arial", 12, "bold"), bg="blue", fg="white",
                               width=10, height=1)
             labelName.grid(row=0, column=0)
-            entryName = Entry(changesFrame,textvariable=addName, bd=3, relief=RIDGE, width=15, font=("arial", 12, "bold"))
+            entryName = Entry(changesFrame,textvariable=addNameemployee, bd=3, relief=RIDGE, width=15, font=("arial", 12, "bold"))
             entryName.grid(row=0, column=1)
 
             #Phone
             labelPhone = Label(changesFrame, text="Phone No:", font=("arial", 12, "bold"), bg="blue", fg="white",
                               width=10, height=1)
             labelPhone.grid(row=1, column=0)
-            entryPhone = Entry(changesFrame,textvariable=addPhone, bd=3, relief=RIDGE, width=15, font=("arial", 12, "bold"))
+            entryPhone = Entry(changesFrame,textvariable=addPhoneemployee, bd=3, relief=RIDGE, width=15, font=("arial", 12, "bold"))
             entryPhone.grid(row=1, column=1)
 
 
@@ -65,43 +88,28 @@ class pharmacyManagementSystem:
             labelAge = Label(changesFrame, text="Age:", font=("arial", 12, "bold"), bg="blue", fg="white",
                                  width=10, height=1)
             labelAge.grid(row=2, column=0)
-            entryAge = Entry(changesFrame,textvariable=addAge, bd=3, relief=RIDGE, width=15, font=("arial", 12, "bold"))
+            entryAge = Entry(changesFrame,textvariable=addAgeemployee, bd=3, relief=RIDGE, width=15, font=("arial", 12, "bold"))
             entryAge.grid(row=2, column=1)
 
             #ID
             labelID = Label(changesFrame, text="Employee ID:", font=("arial", 12, "bold"), bg="blue", fg="white",
                               width=10, height=1)
             labelID.grid(row=3, column=0)
-            entryID = Entry(changesFrame, textvariable=addID, bd=3, relief=RIDGE, width=15, font=("arial", 12, "bold"))
+            entryID = Entry(changesFrame, textvariable=addIDemployee, bd=3, relief=RIDGE, width=15, font=("arial", 12, "bold"))
             entryID.grid(row=3, column=1)
 
             #Shift
             labelShift = Label(changesFrame, text="Shift Time:", font=("arial", 12, "bold"), bg="blue", fg="white",
                               width=10, height=1)
             labelShift.grid(row=4, column=0)
-            entryShift = Entry(changesFrame, textvariable=addShifTime, bd=3, relief=RIDGE, width=15, font=("arial", 12, "bold"))
+            entryShift = Entry(changesFrame, textvariable=addShifTimeemployee, bd=3, relief=RIDGE, width=15, font=("arial", 12, "bold"))
             entryShift.grid(row=4, column=1)
+            
+            
 
             #FunctionButtons
-            # InsertEmployee
-            def addEmployee():
-                conn = sqlite3.connect("pharmacyDatabase.db")
-                cur = conn.cursor()
-                name=str(addName.get())
-                age=int(addAge.get())
-                phone=str(addPhone.get())
-                ID=int(addID.get())
-                shift=str(addShifTime.get())
-                print(name,age,phone,ID,shift)
-                query = "INSERT INTO EMPLOYEE VALUES(?,?,?,?,?)"
-                try:
-                    cur.execute(query, (name, age, phone, ID, shift))
-                    conn.commit()
-                except:
-                    print("dbInsert Error!")
-                conn.close()
 
-            insertEmployee = Button(changesFrame, text="Insert", font=("arial", 12, "bold"), bg="darkgreen",fg="white",width=10, command=addEmployee)
+            insertEmployee = Button(changesFrame, text="Insert", font=("arial", 12, "bold"), bg="darkgreen",fg="white",width=10, command=EmployeeInsert)
             insertEmployee.grid(row=5, column=0)
 
 
@@ -792,34 +800,34 @@ class pharmacyManagementSystem:
 
         # ----------------------FrameButton------------------------------------------
 
-        buttonEmployee = Button(buttonFrame, text="EMPLOYEE", font=("arial", 12, "bold"), bg="darkgreen", fg="white",
+        buttonEmployee = Button(buttonFrame, text="EMPLOYEE", font=("arial", 12, "bold"), bg="darkgreen", fg=self.buttonColor,
                                 width=10,command=lambda:[f() for f in [employee,employeeTreeView,employeeSearchBY]])
         buttonEmployee.grid(row=0, column=0)
 
-        buttonCustomer = Button(buttonFrame, text="CUSTOMER", font=("arial", 12, "bold"), bg="darkgreen", fg="white",
+        buttonCustomer = Button(buttonFrame, text="CUSTOMER", font=("arial", 12, "bold"), bg="darkgreen", fg=self.buttonColor,
                                 width=10,command=lambda:[f() for f in [customer,customerTreeView,customerSearchBY]])
         buttonCustomer.grid(row=0, column=1)
 
-        buttonDoctor = Button(buttonFrame, text="DOCTOR", font=("arial", 12, "bold"), bg="darkgreen", fg="white",
+        buttonDoctor = Button(buttonFrame, text="DOCTOR", font=("arial", 12, "bold"), bg="darkgreen", fg=self.buttonColor,
                               width=10,command=lambda:[f() for f in [doctor,doctorTreeView,doctorSearchBY]])
         buttonDoctor.grid(row=0, column=2)
 
-        buttonDrug = Button(buttonFrame, text="DRUG", font=("arial", 12, "bold"), bg="darkgreen", fg="white", width=10,command=lambda:[f() for f in [drug,drugTreeView,drugSearchBY]])
+        buttonDrug = Button(buttonFrame, text="DRUG", font=("arial", 12, "bold"), bg="darkgreen", fg=self.buttonColor, width=10,command=lambda:[f() for f in [drug,drugTreeView,drugSearchBY]])
         buttonDrug.grid(row=0, column=3)
 
-        buttonWarehouse = Button(buttonFrame, text="WAREHOUSE", font=("arial", 12, "bold"), bg="darkgreen", fg="white",
+        buttonWarehouse = Button(buttonFrame, text="WAREHOUSE", font=("arial", 12, "bold"), bg="darkgreen", fg=self.buttonColor,
                               width=10,command=lambda:[f() for f in [warehouse,warehouseTreeView,warehouseSearchBY]])
         buttonWarehouse.grid(row=0, column=4)
 
-        buttonManufacturer = Button(buttonFrame, text="MANUFACTURER", font=("arial", 12, "bold"), bg="darkgreen",
-                                    fg="white", width=14,command=lambda:[f() for f in [manufacturer,manufacturerTreeView,manufacturerSearchBy]])
+        buttonManufacturer = Button(buttonFrame, text="MANUFACTURER", font=("arial", 12, "bold"), bg=self.buttonColor,
+                                    fg=self.buttonColor, width=14,command=lambda:[f() for f in [manufacturer,manufacturerTreeView,manufacturerSearchBy]])
         buttonManufacturer.grid(row=0, column=5)
 
-        buttonSupplier = Button(buttonFrame, text="SUPPLIER", font=("arial", 12, "bold"), bg="darkgreen", fg="white",
+        buttonSupplier = Button(buttonFrame, text="SUPPLIER", font=("arial", 12, "bold"), bg=self.buttonColor, fg=self.buttonColor,
                                 width=10,command=lambda:[f() for f in [supplier,supplierTreeView,supplierSearchBy]])
         buttonSupplier.grid(row=0, column=6)
 
-        buttonExit = Button(buttonFrame, text="EXIT", font=("arial", 12, "bold"), bg="red", fg="white", width=10)
+        buttonExit = Button(buttonFrame, command=root.destroy, text="EXIT", font=("arial", 12, "bold"), bg="red", fg=self.buttonColor, width=10)
         buttonExit.grid(row=0, column=7)
 
 
