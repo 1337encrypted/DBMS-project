@@ -22,7 +22,7 @@ class supplier:
             print("Database Error")
         self.address = ""
         self.name = ""
-        self.licence = ""
+        self.licence = 0
 
     # parameteried constructor
     def __init__(self, con, address, name, licence):

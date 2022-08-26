@@ -12,8 +12,7 @@
 
 
 # CLASS
-from connection import dbConnect
-drug
+#drug
 
 # FUNCTIONS
 # def __init__(self):
@@ -25,6 +24,7 @@ drug
 # def updateEmployee(self, name, cost, type, barcode, manufacturing_date, manufacturer_name, expiry_date):
 # please fill this list
 
+from connection import dbConnect
 
 class drug:
     # default constructor
@@ -56,7 +56,7 @@ class drug:
 
      # create table
     def createDrug(self):
-        query = 'create table if not exists drug(name varchar(30),cost int,type varchar(20),barcode int primary key,manufacturing_date date,manufacturer_name varchar(20),expiry_date date)'
+        query = 'create table if not exists drug(name varchar(30),cost int,type varchar(20),barcode int primary key,manufacturing_date date,manufacturer_name varchar(20),expiry_date date);'
         #cur = self.con.cursor()
         cur.execute(query)
         self.con.commit()
@@ -64,7 +64,7 @@ class drug:
 
      # insert
     def insertDrug(self, name, cost, type, barcode, manufacturing_date, manufacturer_name, expiry_date):
-        query = "insert into drug(name,cost,type,barcode,manufacturing_date,manufacturer_name,expiry_date) values('{}','{}','{}',{},'{}',{})"
+        query = "insert into drug(name,cost,type,barcode,manufacturing_date,manufacturer_name,expiry_date) values('{}',{},'{}',{},'{}','{}');"
         #cur = self.con.cursor()
         cur.execute(query)
         self.con.commmit()
@@ -79,7 +79,7 @@ class drug:
 
     # delete
     def deleteDrug(self, barcode):
-        query = "delete from drug where barcode = {} ".format(
+        query = "delete from drug where barcode = {};".format(
             barcode)
         #cur = self.con.cursor()
         cur.execute(query)
@@ -88,7 +88,7 @@ class drug:
 
     # update
     def updateEmployee(self, name, cost, type, barcode, manufacturing_date, manufacturer_name, expiry_date):
-        query = "update employee set name='{}',cost='{}',type={},manufacturing_date={},manufacturer_name={},expiry_date={} where barcode = ".format(
+        query = "update employee set name='{}',cost='{}',type={},manufacturing_date={},manufacturer_name={},expiry_date={} where barcode = ;".format(
             name, cost, type, manufacturing_date, manufacturer_name, expiry_date)
         print(query)
         #cur = self.con.cursor()

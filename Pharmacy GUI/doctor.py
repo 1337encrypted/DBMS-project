@@ -28,10 +28,10 @@ class doctor:
             print("Database Error")
             
         self.name = ""
-        self.age = ""
+        self.age = 0
         self.phone = ""
         self.clinicAddress = ""
-        self.licence = ""
+        self.licence = 0
 
     # parameterized constructor
     def __init__(self, con, name, age, phone, clinicAddress, licence):
